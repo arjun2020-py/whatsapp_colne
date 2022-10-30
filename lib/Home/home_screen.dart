@@ -9,14 +9,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //DefaultTabController -> 
+    //DefaultTabController ->
     return DefaultTabController(
       length: 4,
       initialIndex: 1,
       child: Scaffold(
         appBar: AppBar(
-          
-          title: const Text("Whatsapp"),
+          title: const Text("Whatsapp Beta"),
           actions: [
             const Icon(Icons.search),
             PopupMenuButton(
@@ -32,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               },
             )
           ],
-          bottom:const TabBar(
+          bottom: const TabBar(
             tabs: [
               Icon(Icons.camera_alt),
               Text("CHATS"),
@@ -41,7 +40,7 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        body:  TabBarView(
+        body: TabBarView(
           children: [
             CmeraScreen(),
             ChatScreen(),
