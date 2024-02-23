@@ -9,8 +9,10 @@ import '../Status/status_screen.dart';
 import '../community/pages/community_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  HomeScreen({super.key, });
+  final 
   FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+
   @override
   Widget build(BuildContext context) {
     //DefaultTabController ->
@@ -44,9 +46,8 @@ class HomeScreen extends StatelessWidget {
                   PopupMenuItem(child: Text("Setting")),
                   PopupMenuItem(
                       child: InkWell(
-                        onTap: () => firebaseAuthServices.siginout(context),
-                        child: Text('siginOut'))
-                          )
+                          onTap: () => firebaseAuthServices.siginout(context),
+                          child: Text('siginOut')))
                 ];
               },
             )

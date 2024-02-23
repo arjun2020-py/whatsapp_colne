@@ -5,10 +5,13 @@ import 'package:whatsapp_clone/firebase_options.dart';
 import 'package:whatsapp_clone/screen/cmera/camera_screen.dart';
 import 'package:whatsapp_clone/screen/splash/splash.dart';
 
+import 'firebase_auth_services/auth_services.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   cameras = await availableCameras();
- await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAuthServices().initNotfication();
   runApp(const MyApp());
 }
 

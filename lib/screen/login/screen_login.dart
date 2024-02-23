@@ -60,10 +60,16 @@ class LoginScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600),
                         verticalSizedBox(15),
                         CustomTextFiledWidget(
-                          controller: cubit.emailController,
+                          controller: cubit.nameController,
                           validator: (value) =>
                               cubit.usernameVaildation(value!),
                           hintText: 'username',
+                        ),
+                        verticalSizedBox(15),
+                        CustomTextFiledWidget(
+                          controller: cubit.emailController,
+                          validator: (value) => cubit.emailVaildation(value!),
+                          hintText: 'email',
                         ),
                         SizedBox(
                           height: 10,
@@ -107,5 +113,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-
- 

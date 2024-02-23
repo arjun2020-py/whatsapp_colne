@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/screen/login/screen_login.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
@@ -6,6 +7,28 @@ import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
 class FirebaseAuthServices {
   //create the instance of firebase auth
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  //create the instance of firebase messaging
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+  Future<void> onBackgroundMessage(RemoteMessage remoteMessage) async {
+    print('Title:${remoteMessage.notification?.title}');
+    print('Body:${remoteMessage.notification?.body}');
+    print('Payload:${remoteMessage.data}');
+  }
+
+  //create a function for noftcation
+  Future<void> initNotfication() async {
+    print('--------------p1');
+    //requst persmison from user
+    await firebaseMessaging.requestPermission();
+    //get firebaseMessage token
+    final fcmToken = await firebaseMessaging.getToken();
+
+    print('token=====  ${fcmToken}');
+    FirebaseMessaging.onBackgroundMessage(
+        (message) => onBackgroundMessage(message));
+  }
 
   //create a function for register the user with firebase auth
   Future<User?> siginupWithEmailAndPasswrod(

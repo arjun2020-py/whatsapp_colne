@@ -63,7 +63,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       'password': password
     };
     collectionReference.add(dataToSend);
-    print('data values is ${ collectionReference.add(dataToSend)}');
+    
     User? user =
         await authServices.siginupWithEmailAndPasswrod(email, password);
 

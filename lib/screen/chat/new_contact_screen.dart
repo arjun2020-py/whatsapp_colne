@@ -46,15 +46,17 @@ class NewContactScreen extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     children: [
                       CircleAvatar(
-                        radius: 70,
-                        backgroundImage:
-                            AssetImage('assets/images/persion_iocon.jpeg'),
+                        radius: 60,
+                        backgroundImage: NetworkImage(cubit.imageUrl),
                       ),
-                      IconButton(
-                          onPressed: () {
-                            cubit.pickImageFromGallery();
-                          },
-                          icon: Icon(Icons.edit))
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30),
+                        child: IconButton(
+                            onPressed: () {
+                              cubit.pickImageFromGallery();
+                            },
+                            icon: Icon(Icons.edit)),
+                      )
                     ],
                   ),
                   verticalSizedBox(50),
@@ -84,7 +86,7 @@ class NewContactScreen extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                             backgroundColor: appbarMainColor),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          cubit.newContactCollection();
                         },
                         child: CustomTextWidget(
                             text: 'Save',

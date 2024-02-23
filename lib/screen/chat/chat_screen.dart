@@ -1,73 +1,77 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/screen/chat/select_contact.dart';
 import 'package:whatsapp_clone/utils/custom_color/custom_color_widget.dart';
+import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
 
-import 'chat_tile.dart';
 import 'models/chat_model.dart';
+import 'pages/chat_details.dart';
 
 class ChatScreen extends StatelessWidget {
-  ChatScreen({super.key});
+  ChatScreen({super.key, this.email}) {
+    stream = reference.snapshots();
+    
+  }
 
-  List<User> Users = [
-    User(
-      name: "Anu",
-      message: "whatsapp man",
-      image:
-          "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      updateAt: "18.30",
-    ),
-    User(
-      name: "Mummed sheen",
-      message: "how are you",
-      image:
-          "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      isGroup: false,
-      updateAt: "16.0",
-    ),
-    User(
-      name: "kerala blasters fans",
-      message: "what about yesaday match ",
-      image: "",
-      isGroup: true,
-      updateAt: "08.0",
-    ),
-    User(
-      name: "flutter indaia",
-      message: "what about the updation ",
-      image:
-          "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fHVzZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
-      isGroup: true,
-      updateAt: "11.0",
-    ),
-    User(
-      name: "Ansif",
-      message: "enthla amacha ",
-      image:
-          "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      isGroup: false,
-      updateAt: "02.0",
-    ),
-    User(
-      name: "Rhaul",
-      message: "what about the updation ",
-      image:
-          "https://images.unsplash.com/flagged/photo-1573740144655-bbb6e88fb18a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
-      isGroup: false,
-      updateAt: "08.0",
-    ),
-  ]; //list of data
+   String? email;
+  var reference = FirebaseFirestore.instance
+      .collection('chat_tile_collection')
+      .orderBy('time', descending: true);
+  late Stream<QuerySnapshot> stream;
+  late User userDetails;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: Users.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ChatTile(
-            userData: Users[index],
-          );
-        },
-      ),
+      body: StreamBuilder<QuerySnapshot>(
+          stream: stream,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              chatAppShowToast(
+                  message: 'some error is occured ${snapshot.error}');
+            }
+            if (snapshot.hasData) {
+              QuerySnapshot<Object?>? querySnapshot = snapshot.data;
+              List<QueryDocumentSnapshot> documents = querySnapshot!.docs;
+
+              List<Map> items = documents
+                  .map((e) => {
+                        'id': e.id,
+                        'name': e['name'],
+                        'time': e['time'],
+                        'lastMessage': e['lastMessage'],
+                        'user_url': e['user_url'],
+                        'user_id': e['user_id']
+                      })
+                  .toList();
+              return ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Map thisItems = items[index];
+                  return ListTile(
+                    leading: CircleAvatar(
+                        // image put whstaspp
+                        radius: 30,
+                        backgroundImage: NetworkImage(thisItems['user_url'])),
+
+                    title: Text(thisItems['name']),
+                    subtitle: Text(thisItems['lastMessage']),
+                    trailing: Text(thisItems['time']),
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatDeatils(
+                              id: thisItems['id'],
+                              userId: thisItems['user_id']),
+                        )), //navigate to the next page.
+                  );
+                },
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         backgroundColor: appbarMainColor,
         onPressed: () {

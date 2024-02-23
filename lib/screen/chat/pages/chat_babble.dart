@@ -7,7 +7,8 @@ class ChatBabble extends StatelessWidget {
   ChatBable bable;
   @override
   Widget build(BuildContext context) {
-    return Align(
+    return 
+    Align(
         alignment: bable.isSend!
             ? Alignment.centerRight
             : Alignment
