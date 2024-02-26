@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
                   height: 60,
                 ),
                 Container(
-                    child:  FaIcon(FontAwesomeIcons.whatsapp,
+                    child: FaIcon(FontAwesomeIcons.whatsapp,
                         size: 90, color: whiteColor)),
                 const SizedBox(
                   height: 10,

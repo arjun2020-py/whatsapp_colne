@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:whatsapp_clone/screen/login/screen_login.dart';
+import 'package:whatsapp_clone/screen/login/pages/screen_login.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
 
 import '../../../firebase_auth_services/auth_services.dart';

@@ -49,6 +49,7 @@ dependencies:
   firebase_storage: ^11.6.6
   shared_preferences: ^2.2.2
   firebase_messaging: ^14.7.16
+  google_sign_in: ^6.2.1
   #emoji_picker: ^0.1.0
 
 dev_dependencies:

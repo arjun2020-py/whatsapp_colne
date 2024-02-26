@@ -4,9 +4,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'cubit/user_image_selection_cubit.dart';
 
 class UserSelectionImage extends StatelessWidget {
-  UserSelectionImage({super.key, required this.name,});
+  UserSelectionImage({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.passwrod
+  });
   String name;
- 
+  String email;
+  String passwrod;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -38,7 +45,7 @@ class UserSelectionImage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.greenAccent),
                       onPressed: () {
-                        cubit.chatTileCollection(name);
+                        cubit.chatTileCollection(name,email,passwrod);
                       },
                       child: Text('pick image'))
                 ],

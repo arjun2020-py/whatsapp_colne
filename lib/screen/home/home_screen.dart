@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/firebase_auth_services/auth_services.dart';
+import 'package:whatsapp_clone/screen/chat/chat1_screen.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_text_widget.dart';
 
 import '../../utils/custom_color/custom_color_widget.dart';
@@ -9,9 +10,10 @@ import '../Status/status_screen.dart';
 import '../community/pages/community_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key, });
-  final 
-  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
+  HomeScreen({
+    super.key,
+  });
+  final FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,7 @@ class HomeScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             CommunityScreen(),
-            ChatScreen(),
+            Chat1Screen(),
             StatusScreen(),
             CallScreen(),
           ],

@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../utils/custom_color/custom_color_widget.dart';
 import '../../utils/custom_widget/custom_text_form_widget.dart';
 import '../../utils/custom_widget/custom_text_widget.dart';
-import '../login/screen_login.dart';
+import '../login/pages/screen_login.dart';
 import 'compoents/register_elev_button.dart';
 import 'cubit/register_cubit.dart';
 

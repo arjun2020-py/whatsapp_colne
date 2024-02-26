@@ -5,7 +5,7 @@ import 'package:whatsapp_clone/firebase_auth_services/auth_services.dart';
 import 'package:whatsapp_clone/firebase_auth_services/auth_status_enum.dart';
 import 'package:whatsapp_clone/screen/home/home_screen.dart';
 
-import '../../login/screen_login.dart';
+import '../../login/pages/screen_login.dart';
 
 part 'splash_state.dart';
 

@@ -10,12 +10,11 @@ import 'pages/chat_details.dart';
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key, this.email}) {
     stream = reference.snapshots();
-    
   }
 
-   String? email;
+  String? email;
   var reference = FirebaseFirestore.instance
-      .collection('chat_tile_collection')
+      .collection('chat_collection')
       .orderBy('time', descending: true);
   late Stream<QuerySnapshot> stream;
   late User userDetails;
@@ -40,8 +39,7 @@ class ChatScreen extends StatelessWidget {
                         'name': e['name'],
                         'time': e['time'],
                         'lastMessage': e['lastMessage'],
-                        'user_url': e['user_url'],
-                        'user_id': e['user_id']
+                        'userUrl': e['userUrl'],
                       })
                   .toList();
               return ListView.builder(
@@ -52,7 +50,7 @@ class ChatScreen extends StatelessWidget {
                     leading: CircleAvatar(
                         // image put whstaspp
                         radius: 30,
-                        backgroundImage: NetworkImage(thisItems['user_url'])),
+                        backgroundImage: NetworkImage(thisItems['userUrl'])),
 
                     title: Text(thisItems['name']),
                     subtitle: Text(thisItems['lastMessage']),
@@ -61,8 +59,8 @@ class ChatScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ChatDeatils(
-                              id: thisItems['id'],
-                              userId: thisItems['user_id']),
+                            id: thisItems['id'],
+                          ),
                         )), //navigate to the next page.
                   );
                 },

@@ -5,17 +5,18 @@ import 'package:whatsapp_clone/screen/home/home_screen.dart';
 import 'package:whatsapp_clone/utils/custom_color/custom_color_widget.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_sized_box.dart';
 
-import '../../utils/custom_widget/custom_text_form_widget.dart';
-import '../../utils/custom_widget/custom_text_widget.dart';
-import '../register/screen_register.dart';
-import 'compoents/login_elev_button.dart';
-import 'cubit/login_cubit.dart';
+import '../../../firebase_auth_services/auth_services.dart';
+import '../../../utils/custom_widget/custom_text_form_widget.dart';
+import '../../../utils/custom_widget/custom_text_widget.dart';
+import '../../register/screen_register.dart';
+import '../compoents/login_elev_button.dart';
+import '../cubit/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key, this.name});
 
   String? name;
-
+  FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -58,6 +59,7 @@ class LoginScreen extends StatelessWidget {
                             color: Colors.black,
                             fontSize: 25,
                             fontWeight: FontWeight.w600),
+                            
                         verticalSizedBox(15),
                         CustomTextFiledWidget(
                           controller: cubit.nameController,
@@ -102,6 +104,47 @@ class LoginScreen extends StatelessWidget {
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600))
                           ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            horoztalSizedBox(10),
+                            Expanded(
+                              child: Divider(
+                                color: blackColor,
+                                thickness: 0.2,
+                              ),
+                            ),
+                            horoztalSizedBox(10),
+                            CustomTextWidget(
+                                text: 'OR',
+                                color: blackColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500),
+                            horoztalSizedBox(10),
+                            Expanded(
+                              child: Divider(
+                                color: blackColor,
+                                thickness: 0.2,
+                              ),
+                            ),
+                            horoztalSizedBox(10)
+                          ],
+                        ),
+                        SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.5,
+                          child: ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: whiteColor),
+                              onPressed: () {
+                                firebaseAuthServices.signInWithGoogle(context);
+                              },
+                              icon: FaIcon(
+                                FontAwesomeIcons.google,
+                                color: Colors.red,
+                              ),
+                              label: Text('')),
                         )
                       ],
                     ),

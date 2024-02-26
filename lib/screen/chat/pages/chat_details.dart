@@ -8,14 +8,14 @@ import '../../../utils/custom_color/custom_color_widget.dart';
 import '../cubit/chat_cubit.dart';
 
 class ChatDeatils extends StatelessWidget {
-  ChatDeatils({super.key, required this.id, required this.userId}) {
+  ChatDeatils({super.key, required this.id,}) {
     _documentReference =
         FirebaseFirestore.instance.collection('chat_tile_collection').doc(id);
     futureData = _documentReference.get();
     stream = messageRef.snapshots();
   }
 
-  var userId;
+  // var userId;
   late Stream<QuerySnapshot> stream;
   final String id;
   late DocumentReference _documentReference;
@@ -123,7 +123,8 @@ class ChatDeatils extends StatelessWidget {
                                       (BuildContext context, int index) {
                                     //chat buble code .
                                     var data = items[index];
-                                    return Align(
+                                    return 
+                                    Align(
                                         alignment:
                                             //  data['user_id'] ==
                                             //         FirebaseAuth

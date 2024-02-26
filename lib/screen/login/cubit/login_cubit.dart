@@ -9,6 +9,7 @@ import 'package:whatsapp_clone/screen/home/home_screen.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
 
 import '../../../firebase_auth_services/auth_services.dart';
+import '../../../firebase_auth_services/auth_status_enum.dart';
 import '../../user_image_secletion/user_selection.dart';
 
 part 'login_state.dart';
@@ -24,6 +25,8 @@ class LoginCubit extends Cubit<LoginState> {
   final FirebaseAuthServices authServices = FirebaseAuthServices();
   CollectionReference ref =
       FirebaseFirestore.instance.collection('chat_tile_collection');
+
+  AuthStatus authStatus = AuthStatus.notSignedIn;
   usernameVaildation(String value) {
     if (value.isEmpty) {
       return 'please enter vaild username';
@@ -47,21 +50,27 @@ class LoginCubit extends Cubit<LoginState> {
     String email = emailController.text;
     String passwrod = passwrodController.text;
 
-    User? user =
-        await authServices.sigininWithEmailAndPasswrod(email, passwrod);
-    if (user != null) {
-      chatAppShowToast(message: 'User successfully logined');
-      setStringSF(email);
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => UserSelectionImage(
-          name: name,
-        ),
-      ));
-    }
-  }
+    // User? user =
+    //     await authServices.sigininWithEmailAndPasswrod(email, passwrod);
+    // if (user != null) {
+    //   chatAppShowToast(message: 'User successfully logined');
 
-  setStringSF(String email) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setString('email', email);
+    //   authServices.currentUser().then((userId) {
+    //     authStatus =
+    //         userId == null ? AuthStatus.notSignedIn : AuthStatus.signedIn;
+    //   });
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => UserSelectionImage(
+        name: name,
+        email: email,
+        passwrod: passwrod,
+      ),
+    ));
   }
+}
+
+setStringSF(String email) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  sharedPreferences.setString('email', email);
 }

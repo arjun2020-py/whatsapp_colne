@@ -20,7 +20,16 @@ class ChatCubit extends Cubit<ChatState> {
   TextEditingController firstNameController = TextEditingController(),
       lastNameController = TextEditingController(),
       messageController = TextEditingController(),
+      chatMessageController = TextEditingController(),
       phoneController = TextEditingController();
+
+  TextEditingController groupNameController = TextEditingController();
+
+  groupNameVaildtor(String value) {
+    if (value.isEmpty) {
+      return 'enter  the vaild group name';
+    }
+  }
 
   CollectionReference collectionReference =
       FirebaseFirestore.instance.collection('new_contact_collection');
@@ -49,6 +58,12 @@ class ChatCubit extends Cubit<ChatState> {
   phoneVaildator(String value) {
     if (value != null) {
       return 'enter vaild phone number';
+    }
+  }
+
+  messageValidtor(String value) {
+    if (value != null) {
+      return 'enter vaild ';
     }
   }
 
@@ -91,7 +106,6 @@ class ChatCubit extends Cubit<ChatState> {
       'laetName': lastName,
       'mobile': mobile,
       'createdTime': time,
-
       'imagePAth': imageUrl
     };
     collectionReference.add(dataToSend);
@@ -104,17 +118,52 @@ class ChatCubit extends Cubit<ChatState> {
     print('----------email----${email}---------');
   }
 
-  // messageCollection() async {
-  //   FirebaseAuth auth = FirebaseAuth.instance;
-  //   String message = messageController.text;
-  //   var time = DateFormat('hh:mm a').format(DateTime.now());
-  //   Map<String, String> dataToSend = {
-  //     "add_time": time,
-  //     "content": message,
-  //     "type": email,
-  //     "user_id": auth.currentUser!.uid
-  //   };
-  //   messageRefe.add(dataToSend);
-  //   messageController.clear();
-  // }
+  Future<void> addchatRoom(String groupName, String time) async {
+    //create a document reffence
+
+    final docRef = await FirebaseFirestore.instance
+        .collection('chats')
+        .add({'userName': groupName});
+
+    await docRef.set({
+      "id": docRef.id,
+      "group": groupName,
+      "last_msg": "",
+      "time": time,
+      "last_user": "",
+      "last_user_email": ""
+    });
+    Navigator.of(context).pop();
+  }
+
+  //create function for message add
+  Future<void> addMessage(
+      String id, String message, String time, String groupName) async {
+    //create the instance of current user.
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    //create a sub-collection inside the 'chats' collection
+
+    await FirebaseFirestore.instance
+        .collection('chats')
+        .doc(id)
+        .collection('messages')
+        .add({
+      "Username": user!.displayName,
+      "Useremail": user.email,
+      "Userphoto": user.photoURL,
+      "Message": message,
+      "Time": time
+    }).then((value) {
+      FirebaseFirestore.instance.collection('chats').doc(id).update({
+        "last_msg": message,
+        "last_time": time,
+        "last_user":
+            user.displayName!.substring(0, user.displayName!.indexOf(' ')),
+        "last_user_email": user.email
+      });
+    });
+    chatMessageController.clear();
+  }
 }
