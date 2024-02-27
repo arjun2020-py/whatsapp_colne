@@ -98,7 +98,7 @@ class Chat1Deatils extends StatelessWidget {
                     stream: firebaseFirestore
                         .collection('chats')
                         .doc(id)
-                        .collection('addMessage')
+                        .collection('messages')
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
@@ -131,7 +131,7 @@ class Chat1Deatils extends StatelessWidget {
                           ),
                         );
                       }
-                      return Center(child: CircularProgressIndicator());
+                      return Center(child:CircularProgressIndicator());
                     }),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -168,8 +168,6 @@ class Chat1Deatils extends StatelessWidget {
                             backgroundColor: appbarMainColor,
                             onPressed: () async {
                               // cubit.messageCollection();
-
-                              print('id========== ${id} ----------------');
 
                               await cubit.addMessage(
                                   id,

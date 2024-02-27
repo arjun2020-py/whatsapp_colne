@@ -6,7 +6,7 @@ import 'package:whatsapp_clone/utils/custom_widget/custom_sized_box.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_text_form_widget.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_text_widget.dart';
 
-import 'cubit/chat_cubit.dart';
+import '../cubit/chat_cubit.dart';
 
 class AddNewCommunity extends StatelessWidget {
   const AddNewCommunity({super.key});

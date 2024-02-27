@@ -10,6 +10,8 @@ import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../chat1_screen.dart';
+
 part 'chat_state.dart';
 
 class ChatCubit extends Cubit<ChatState> {
@@ -133,17 +135,14 @@ class ChatCubit extends Cubit<ChatState> {
       "last_user": "",
       "last_user_email": ""
     });
-    Navigator.of(context).pop();
   }
 
   //create function for message add
   Future<void> addMessage(
       String id, String message, String time, String groupName) async {
-    //create the instance of current user.
-
     final user = FirebaseAuth.instance.currentUser;
 
-    //create a sub-collection inside the 'chats' collection
+    print('-----------------------------p1');
 
     await FirebaseFirestore.instance
         .collection('chats')
@@ -159,11 +158,12 @@ class ChatCubit extends Cubit<ChatState> {
       FirebaseFirestore.instance.collection('chats').doc(id).update({
         "last_msg": message,
         "last_time": time,
-        "last_user":
-            user.displayName!.substring(0, user.displayName!.indexOf(' ')),
+        "last_user": user.displayName!,
         "last_user_email": user.email
       });
     });
+    print('-----------------------------p2');
     chatMessageController.clear();
+    Navigator.of(context).pop();
   }
 }

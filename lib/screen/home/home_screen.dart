@@ -5,14 +5,12 @@ import 'package:whatsapp_clone/utils/custom_widget/custom_text_widget.dart';
 
 import '../../utils/custom_color/custom_color_widget.dart';
 import '../Calls/call_screen.dart';
-import '../Chat/chat_screen.dart';
 import '../Status/status_screen.dart';
 import '../community/pages/community_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({
-    super.key,
-  });
+    super.key  });
   final FirebaseAuthServices firebaseAuthServices = FirebaseAuthServices();
 
   @override

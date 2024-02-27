@@ -2,16 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:whatsapp_clone/screen/chat/pages/chat1_deatils.dart';
-import 'package:whatsapp_clone/screen/chat/select_contact.dart';
 import 'package:whatsapp_clone/utils/custom_color/custom_color_widget.dart';
 import 'package:whatsapp_clone/utils/custom_widget/custom_toast_widget.dart';
 
 import 'cubit/chat_cubit.dart';
 import 'demo_screen.dart';
-import 'models/chat_model.dart';
-import 'pages/chat_details.dart';
+
 
 class Chat1Screen extends StatelessWidget {
   Chat1Screen({super.key, this.email});
